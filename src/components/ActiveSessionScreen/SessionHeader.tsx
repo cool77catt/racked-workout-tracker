@@ -6,13 +6,6 @@ import {
   View
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  header: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '600',
-  },
-});
 
 type SessionHeaderProps = {
   title: string,
@@ -27,5 +20,14 @@ const SessionHeader = (props: SessionHeaderProps) => {
     </View>
   )
 };
+
+
+const styles = StyleSheet.create({
+  header: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '600',
+  },
+});
 
 export default SessionHeader;
