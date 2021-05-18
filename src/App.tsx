@@ -7,30 +7,31 @@
  *
  * @format
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import ActiveSessionScreen from './components/ActiveSessionScreen/ActiveSession';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
- import {
-   SafeAreaView,
-   ScrollView,
-   StatusBar,
-   StyleSheet,
-   Text,
-   useColorScheme,
-   View,
- } from 'react-native';
-
- import {
-   Colors,
-   DebugInstructions,
-   Header,
-   LearnMoreLinks,
-   ReloadInstructions,
- } from 'react-native/Libraries/NewAppScreen';
-
-
+import { RootStackParamList } from './RootStackParams';
+import ActiveSessionScreen, { ActiveSessionScreenRouteProp } from './scenes/ActiveSessionScreen';
+import HomeScreen from './scenes/HomeScreen';
 
 //  const Section: React.FC<{
 //    title: string;
@@ -60,6 +61,8 @@ import ActiveSessionScreen from './components/ActiveSessionScreen/ActiveSession'
 //    );
 //  };
 
+const Stack = createStackNavigator<RootStackParamList>();
+
 const App = () => {
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -69,10 +72,19 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ActiveSessionScreen  />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Homeboy" }} />
+            <Stack.Screen 
+              name="ActiveSession" 
+              component={ActiveSessionScreen} 
+              options={({route}) => ({ title: route?.params?.title })} 
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
   );
 
   //  return (
