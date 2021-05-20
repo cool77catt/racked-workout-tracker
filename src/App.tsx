@@ -30,7 +30,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { RootStackParamList } from './RootStackParams';
-import ActiveSessionScreen, { ActiveSessionScreenRouteProp } from './scenes/ActiveSessionScreen';
+import ActiveSessionScreen from './scenes/ActiveSessionScreen';
 import HomeScreen from './scenes/HomeScreen';
 
 //  const Section: React.FC<{
@@ -80,7 +80,7 @@ const App = () => {
             <Stack.Screen 
               name="ActiveSession" 
               component={ActiveSessionScreen} 
-              options={({route}) => ({ title: route?.params?.title })} 
+              options={({route}) => ({ title: route?.params?.workout.title })} 
             />
           </Stack.Navigator>
         </NavigationContainer>

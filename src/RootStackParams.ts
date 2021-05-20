@@ -1,7 +1,8 @@
+import { Workout } from './types';
 
 export type RootStackParamList = {
   Home: undefined,
   ActiveSession: {
-    title: string,
+    workout: Workout,
   },
 };

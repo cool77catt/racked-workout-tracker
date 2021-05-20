@@ -1,4 +1,4 @@
-import React, {useState, useRef}  from 'react';
+import React, {useState, useRef, useEffect}  from 'react';
 import {
   View,
   Text,
@@ -24,33 +24,61 @@ type ActiveSessionScreenProps = {
 };
 
 enum Status {
-  Stopped,
-  Started,
+  Waiting,
+  Running,
   Paused,
+  Finished,
 };
 
 // const ActiveSessionScreen = (props: activeSessionScreenProps) => {
 const ActiveSessionScreen = ({navigation, route}: ActiveSessionScreenProps) => {
 
   // Define state variables.
-  const [status, setStatus] = useState(Status.Stopped);
+  const [status, setStatus] = useState(Status.Waiting);
   const [time, setTime] = useState(0.0);
 
   // Define state variables that won't cause re-render
   let startTime = useRef<number>(0);
+  let timeOffset = useRef<number>(0);
   let timerId = useRef<number>(0);
 
+  // Setup navigation event listener
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      // Check if the workout session has finished
+      // if (status === Status.Finished) {
+      //   return;
+      // }
+
+      // Stop the timer
+      clearInterval(timerId.current);
+
+      // Ask if the user wants to quit the session or keep going
+      console.log('Leaving betch');
+    });
+  }, []);
+
+  // Define handler for the start button clicked
   const startButtonClicked = () => {
     startTime.current = Date.now();
-    setStatus(Status.Started);
+    setStatus(Status.Running);
     timerId.current = window.setInterval(() => {
-      setTime((Date.now() - startTime.current) / 1000)
+      setTime((Date.now() - startTime.current + timeOffset.current) / 1000)
     }, CONSTANTS.ACTIVE_SCREEN.TIMER_UPDATE_INTERVAL_SECS * 1000);
   }
 
+  // Define handler for pause button clicked
   const pauseButtonClicked = () => {
+    timeOffset.current += Date.now() - startTime.current;
     clearInterval(timerId.current);
-    setStatus(Status.Stopped);
+    setStatus(Status.Paused);
+  }
+
+  // Handler for lap button press
+  const lapButtonClicked = () => {
+    // clearInterval(timerId.current);
+    // setStatus(Status.Paused);
+    console.log("lap");
   }
 
   const renderButton = (title: string, color: string, callback: () => void) => {
@@ -59,13 +87,27 @@ const ActiveSessionScreen = ({navigation, route}: ActiveSessionScreenProps) => {
         <Button title={title} color={color} onPress={callback}/>
       </View>
     );
+
   }
   
   const renderButtons = () => {
-    if (status === Status.Stopped)
+    if (status === Status.Waiting)
       return renderButton('start', 'blue', startButtonClicked);
+    else if (status === Status.Running)
+      return (
+        <>
+          {renderButton('pause', 'purple', pauseButtonClicked)}
+          {renderButton('lap', 'purple', lapButtonClicked)}
+        </>
+      );
+    else if (status === Status.Paused)
+      return (
+        <>
+          {renderButton('resume', 'purple', startButtonClicked)}
+        </>
+      );
     else
-      return renderButton('pause', 'purple', pauseButtonClicked);
+      return;
   }
   
 
