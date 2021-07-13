@@ -114,7 +114,6 @@
 				8BC9E43DB39D14C743C0DF62 /* Pods-RackedWorkoutTracker-RackedWorkoutTrackerTests.debug.xcconfig */,
 				CDA7AE64A0EA09C2A6EF283D /* Pods-RackedWorkoutTracker-RackedWorkoutTrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -432,6 +431,7 @@
 			baseConfigurationReference = 8BC9E43DB39D14C743C0DF62 /* Pods-RackedWorkoutTracker-RackedWorkoutTrackerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8F4A49HS57;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -460,6 +460,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 8F4A49HS57;
 				INFOPLIST_FILE = RackedWorkoutTrackerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -485,6 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8F4A49HS57;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RackedWorkoutTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,6 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8F4A49HS57;
 				INFOPLIST_FILE = RackedWorkoutTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

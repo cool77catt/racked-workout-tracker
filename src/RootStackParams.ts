@@ -1,8 +1,8 @@
-import { Workout } from './types';
+import { WorkoutResults } from './types';
 
 export type RootStackParamList = {
   Home: undefined,
   ActiveSession: {
-    workout: Workout,
+    workout: WorkoutResults,
   },
 };

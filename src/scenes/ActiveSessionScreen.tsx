@@ -12,6 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../RootStackParams';
 import CONSTANTS from '../constants';
 import { secsToHHMMSS } from '../utils/time';
+import SetDetailsCard from '../components/SetDetailsCard';
 import SessionHistoryCard from '../components/SessionHistoryCard';
 
 
@@ -36,6 +37,8 @@ const ActiveSessionScreen = ({navigation, route}: ActiveSessionScreenProps) => {
   // Define state variables.
   const [status, setStatus] = useState(Status.Waiting);
   const [time, setTime] = useState(0.0);
+  const [circuitIndex, setCircuitIndex] = useState(0);
+  const [sequenceIndex, setSequenceIndex] = useState(0);
 
   // Define state variables that won't cause re-render
   let startTime = useRef<number>(0);
@@ -118,6 +121,9 @@ const ActiveSessionScreen = ({navigation, route}: ActiveSessionScreenProps) => {
         <Text style={styles.timer}>
           {secsToHHMMSS(time)}
         </Text>
+      </View>
+      <View>
+        <SetDetailsCard name='Bench' setNumber={2} currentWeight={125} />
       </View>
       <View style={styles.controllerContainer}>
         {renderButtons()}

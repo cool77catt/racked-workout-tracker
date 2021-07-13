@@ -1,7 +1,19 @@
 
+export const weightTypes = ['machine', 'barbell', 'dumbell', 'free-weight', 'cable', 'other'] as const;
+export const weightUnits = ['lb', 'kg', ''] as const;
+
+
+export type ExerciseDetails = {
+  
+  numReps: number;
+  weight: number;
+  weightType?: typeof weightTypes;
+  weightUnits?: typeof weightUnits;
+}
+
+
 export type Exercise = {
   name: string,
-  targetReps: number,
-  targetWeight: number,
-  targetWeightUnits: ['lb', 'kg', ''],
+  target?: ExerciseDetails,
+  results?: ExerciseDetails
 };

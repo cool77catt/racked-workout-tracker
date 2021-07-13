@@ -8,7 +8,7 @@
  * @format
  */
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,37 +29,12 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { darkTheme } from './themes';
+import { ThemeContext }  from './contexts';
+// import { ActiveWorkoutContext } from './contexts';
 import { RootStackParamList } from './RootStackParams';
 import ActiveSessionScreen from './scenes/ActiveSessionScreen';
 import HomeScreen from './scenes/HomeScreen';
-
-//  const Section: React.FC<{
-//    title: string;
-//  }> = ({children, title}) => {
-//    const isDarkMode = useColorScheme() === 'dark';
-//    return (
-//      <View style={styles.sectionContainer}>
-//        <Text
-//          style={[
-//            styles.sectionTitle,
-//            {
-//              color: isDarkMode ? Colors.white : Colors.black,
-//            },
-//          ]}>
-//          {title}
-//        </Text>
-//        <Text
-//          style={[
-//            styles.sectionDescription,
-//            {
-//              color: isDarkMode ? Colors.light : Colors.dark,
-//            },
-//          ]}>
-//          {children}
-//        </Text>
-//      </View>
-//    );
-//  };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -67,14 +42,33 @@ const App = () => {
 
   const isDarkMode = useColorScheme() === 'dark';
 
+
+  const theme = isDarkMode ? darkTheme : darkTheme;
+
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      backgroundColor: theme.backgroundColor,
   };
 
+  console.log(isDarkMode);
+  console.log(theme);
+
+  const navigationTheme = {
+    dark: isDarkMode,
+    colors: {
+      primary: theme.primary,
+      background: theme.backgroundColor,
+      card: theme.backgroundColor,
+      text: theme.text,
+      border: theme.text,
+      notification: 'rgb(255, 69, 58)',
+    }
+  }
+
   return (
-      <SafeAreaView style={styles.container}>
+    <ThemeContext.Provider value={theme}>
+      <SafeAreaView style={[backgroundStyle, styles.container]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <NavigationContainer>
+        <NavigationContainer theme={navigationTheme}>
           <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Homeboy" }} />
             <Stack.Screen 
@@ -85,6 +79,7 @@ const App = () => {
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
+    </ThemeContext.Provider>
   );
 
   //  return (
